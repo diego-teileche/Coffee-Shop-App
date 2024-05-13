@@ -1,10 +1,10 @@
-# About the App
+# About the App 📱
 
 This is a Coffee Shop App built by `Diego Tech` by using:
 
 - React Native
 
-## I used the Libraries
+## 🚀 I used the Libraries
 
 - React Native Navigation
 - Zustand
@@ -15,7 +15,7 @@ This is a Coffee Shop App built by `Diego Tech` by using:
 - Lottie React Native
 - React Native Vector Icons
 
-### One message for Everyone
+### One message for Everyone 🔥
 
 ```bash
 Aguante Argentina!!!
