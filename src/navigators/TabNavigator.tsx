@@ -7,6 +7,7 @@ import FavoritesScreen from '../screens/FavoritesScreen';
 import OrderHistoryScreen from '../screens/OrderHistoryScreen';
 import {COLORS} from '../theme/theme';
 import {BlurView} from '@react-native-community/blur';
+import CustomIcon from '../components/CustomIcon';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,10 +27,66 @@ const TabNavigator = () => {
           />
         ),
       }}>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Cart" component={CartScreen} />
-      <Tab.Screen name="Favorite" component={FavoritesScreen} />
-      <Tab.Screen name="History" component={OrderHistoryScreen} />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({focused, color, size}) => (
+            <CustomIcon
+              name="home"
+              size={25}
+              color={
+                focused ? COLORS.primaryOrangeHex : COLORS.primaryLightGreyHex
+              }
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Cart"
+        component={CartScreen}
+        options={{
+          tabBarIcon: ({focused, color, size}) => (
+            <CustomIcon
+              name="cart"
+              size={25}
+              color={
+                focused ? COLORS.primaryOrangeHex : COLORS.primaryLightGreyHex
+              }
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Favorite"
+        component={FavoritesScreen}
+        options={{
+          tabBarIcon: ({focused, color, size}) => (
+            <CustomIcon
+              name="like"
+              size={25}
+              color={
+                focused ? COLORS.primaryOrangeHex : COLORS.primaryLightGreyHex
+              }
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="History"
+        component={OrderHistoryScreen}
+        options={{
+          tabBarIcon: ({focused, color, size}) => (
+            <CustomIcon
+              name="bell"
+              size={25}
+              color={
+                focused ? COLORS.primaryOrangeHex : COLORS.primaryLightGreyHex
+              }
+            />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
