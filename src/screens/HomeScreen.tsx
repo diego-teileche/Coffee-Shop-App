@@ -1,7 +1,9 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {useStore} from '../store/store';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+import {COLORS} from '../theme/theme';
+import HeaderBar from '../components/HeaderBar';
 
 const getCategoriesFromData = (data: any) => {
   let temp: any = {};
@@ -48,12 +50,26 @@ const HomeScreen = () => {
   const tabBarHeight = useBottomTabBarHeight();
 
   return (
-    <View>
-      <Text>HomeScreen</Text>
+    <View style={styles.screenContainer}>
+      <StatusBar backgroundColor={COLORS.primaryBlackHex} />
+
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollViewFlex}>
+        <HeaderBar />
+      </ScrollView>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  screenContainer: {
+    flex: 1,
+    backgroundColor: COLORS.primaryBlackHex,
+  },
+  scrollViewFlex: {
+    flexGrow: 1,
+  },
+});
 
 export default HomeScreen;
