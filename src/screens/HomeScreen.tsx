@@ -1,4 +1,5 @@
 import {
+  Dimensions,
   FlatList,
   ScrollView,
   StatusBar,
@@ -70,6 +71,33 @@ const HomeScreen = () => {
 
   const tabBarHeight = useBottomTabBarHeight();
 
+  const searchCoffee = (search: string) => {
+    if (search != '') {
+      listRef?.current?.scrollToOffset({
+        animated: true,
+        offset: 0,
+      });
+
+      setCategoryIndex({index: 0, category: categories[0]});
+      setsortedCoffee([
+        ...CoffeeList.filter((item: any) =>
+          item.name.toLowerCase().includes(search.toLowerCase()),
+        ),
+      ]);
+    }
+  };
+
+  const resetSearchCoffee = () => {
+    listRef?.current?.scrollToOffset({
+      animated: true,
+      offset: 0,
+    });
+
+    setCategoryIndex({index: 0, category: categories[0]});
+    setsortedCoffee([...CoffeeList]);
+    setSearchText('');
+  };
+
   return (
     <View style={styles.screenContainer}>
       <StatusBar backgroundColor={COLORS.primaryBlackHex} />
@@ -84,10 +112,13 @@ const HomeScreen = () => {
         </Text>
 
         <View style={styles.inputContainerComponent}>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity
+            onPress={() => {
+              searchCoffee(searchText);
+            }}>
             <CustomIcon
               name="search"
-              size={FONTSIZE.size_30}
+              size={FONTSIZE.size_20}
               color={
                 searchText.length > 0
                   ? COLORS.primaryOrangeHex
@@ -104,6 +135,19 @@ const HomeScreen = () => {
             placeholderTextColor={COLORS.primaryLightGreyHex}
             style={styles.textInputContainer}
           />
+
+          {searchText.length > 0 ? (
+            <TouchableOpacity onPress={() => resetSearchCoffee()}>
+              <CustomIcon
+                name="close"
+                size={FONTSIZE.size_16}
+                color={COLORS.primaryLightGreyHex}
+                style={styles.inputIcon}
+              />
+            </TouchableOpacity>
+          ) : (
+            <></>
+          )}
         </View>
 
         <ScrollView
@@ -147,6 +191,11 @@ const HomeScreen = () => {
         <FlatList
           ref={listRef}
           horizontal
+          ListEmptyComponent={
+            <View style={styles.emptyListContainer}>
+              <Text style={styles.categoryText}>No Coffee Found</Text>
+            </View>
+          }
           showsHorizontalScrollIndicator={false}
           data={sortedCoffee}
           contentContainerStyle={styles.flatListContainer}
@@ -229,7 +278,6 @@ const styles = StyleSheet.create({
   },
   inputIcon: {
     marginHorizontal: SPACING.space_20,
-    fontSize: FONTSIZE.size_20,
   },
   textInputContainer: {
     flex: 1,
@@ -264,6 +312,12 @@ const styles = StyleSheet.create({
     gap: SPACING.space_20,
     paddingVertical: SPACING.space_20,
     paddingHorizontal: SPACING.space_30,
+  },
+  emptyListContainer: {
+    width: Dimensions.get('window').width - SPACING.space_30 * 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: SPACING.space_36 * 3.6,
   },
   coffeeBeansTitle: {
     fontSize: FONTSIZE.size_18,
