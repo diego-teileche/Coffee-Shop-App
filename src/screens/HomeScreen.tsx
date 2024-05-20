@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {useStore} from '../store/store';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {
@@ -66,6 +66,8 @@ const HomeScreen = () => {
       : [],
   );
 
+  const listRef: any = useRef<FlatList>();
+
   const tabBarHeight = useBottomTabBarHeight();
 
   return (
@@ -113,6 +115,10 @@ const HomeScreen = () => {
               <TouchableOpacity
                 style={styles.categoryItem}
                 onPress={() => {
+                  listRef?.current?.scrollToOffset({
+                    animated: true,
+                    offset: 0,
+                  });
                   setCategoryIndex({index: index, category: categories[index]});
                   setsortedCoffee([
                     ...getCoffeeList(categories[index], CoffeeList),
@@ -139,6 +145,7 @@ const HomeScreen = () => {
         </ScrollView>
 
         <FlatList
+          ref={listRef}
           horizontal
           showsHorizontalScrollIndicator={false}
           data={sortedCoffee}
