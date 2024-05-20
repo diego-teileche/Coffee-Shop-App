@@ -24,24 +24,24 @@ const getCategoriesFromData = (data: any) => {
   let temp: any = {};
 
   for (let i = 0; i < data.length; i++) {
-    if (temp[data[i].name] === undefined) {
+    if (temp[data[i].name] == undefined) {
       temp[data[i].name] = 1;
     } else {
       temp[data[i].name]++;
     }
-
-    let categories = Object.keys(temp);
-    categories.unshift('All');
-
-    return categories;
   }
+
+  let categories = Object.keys(temp);
+  categories.unshift('All');
+
+  return categories;
 };
 
 const getCoffeeList = (category: string, data: any) => {
-  if (category === 'All') {
+  if (category == 'All') {
     return data;
   } else {
-    let coffeeList = data.filter((item: any) => item.name === category);
+    let coffeeList = data.filter((item: any) => item.name == category);
 
     return coffeeList;
   }
@@ -55,11 +55,13 @@ const HomeScreen = () => {
   );
   const [searchText, setSearchText] = useState('');
   const [categoryIndex, setCategoryIndex] = useState({
-    index: 0,
-    category: categories[0],
+    index: 1,
+    category: categories ? categories[1] : undefined,
   });
   const [sortedCoffee, setsortedCoffee] = useState(
-    getCoffeeList(categoryIndex.category, CoffeeList),
+    categoryIndex.category
+      ? getCoffeeList(categoryIndex.category, CoffeeList)
+      : [],
   );
 
   const tabBarHeight = useBottomTabBarHeight();
@@ -99,6 +101,40 @@ const HomeScreen = () => {
             style={styles.textInputContainer}
           />
         </View>
+
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.categoryScrollViewStyle}>
+          {categories?.map((data, index) => (
+            <View key={index.toString()} style={styles.categoryViewContainer}>
+              <TouchableOpacity
+                style={styles.categoryItem}
+                onPress={() => {
+                  setCategoryIndex({index: index, category: categories[index]});
+                  setsortedCoffee([
+                    ...getCoffeeList(categories[index], CoffeeList),
+                  ]);
+                }}>
+                <Text
+                  style={[
+                    styles.categoryText,
+                    categoryIndex.index === index
+                      ? {color: COLORS.primaryOrangeHex}
+                      : {},
+                  ]}>
+                  {data}
+                </Text>
+
+                {categoryIndex.index === index ? (
+                  <View style={styles.activeCategory} />
+                ) : (
+                  <></>
+                )}
+              </TouchableOpacity>
+            </View>
+          ))}
+        </ScrollView>
       </ScrollView>
     </View>
   );
@@ -135,6 +171,28 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.poppins_medium,
     fontSize: FONTSIZE.size_14,
     color: COLORS.primaryWhiteHex,
+  },
+  categoryViewContainer: {
+    paddingHorizontal: SPACING.space_15,
+  },
+  categoryScrollViewStyle: {
+    paddingHorizontal: SPACING.space_20,
+    marginBottom: SPACING.space_20,
+  },
+  categoryItem: {
+    alignItems: 'center',
+  },
+  categoryText: {
+    fontFamily: FONTFAMILY.poppins_semibold,
+    fontSize: FONTSIZE.size_16,
+    color: COLORS.primaryLightGreyHex,
+    marginBottom: SPACING.space_4,
+  },
+  activeCategory: {
+    height: SPACING.space_10,
+    width: SPACING.space_10,
+    borderRadius: BORDERRADIUS.radius_10,
+    backgroundColor: COLORS.primaryOrangeHex,
   },
 });
 
