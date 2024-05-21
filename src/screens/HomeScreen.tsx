@@ -58,8 +58,8 @@ const HomeScreen = () => {
   );
   const [searchText, setSearchText] = useState('');
   const [categoryIndex, setCategoryIndex] = useState({
-    index: 1,
-    category: categories ? categories[1] : undefined,
+    index: 0,
+    category: categories ? categories[0] : undefined,
   });
   const [sortedCoffee, setsortedCoffee] = useState(
     categoryIndex.category
@@ -112,26 +112,24 @@ const HomeScreen = () => {
         </Text>
 
         <View style={styles.inputContainerComponent}>
-          <TouchableOpacity
-            onPress={() => {
-              searchCoffee(searchText);
-            }}>
-            <CustomIcon
-              name="search"
-              size={FONTSIZE.size_20}
-              color={
-                searchText.length > 0
-                  ? COLORS.primaryOrangeHex
-                  : COLORS.primaryLightGreyHex
-              }
-              style={styles.inputIcon}
-            />
-          </TouchableOpacity>
+          <CustomIcon
+            name="search"
+            size={FONTSIZE.size_20}
+            color={
+              searchText.length > 0
+                ? COLORS.primaryOrangeHex
+                : COLORS.primaryLightGreyHex
+            }
+            style={styles.inputIcon}
+          />
 
           <TextInput
             placeholder="Find Your Coffee..."
             value={searchText}
-            onChangeText={text => setSearchText(text)}
+            onChangeText={text => {
+              setSearchText(text);
+              searchCoffee(text);
+            }}
             placeholderTextColor={COLORS.primaryLightGreyHex}
             style={styles.textInputContainer}
           />
