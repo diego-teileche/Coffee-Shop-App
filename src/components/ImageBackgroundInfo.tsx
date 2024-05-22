@@ -48,7 +48,7 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
         style={styles.itemBackgroundImage}>
         {EnableBackHandler ? (
           <View style={styles.imageHeaderBarContainerWithBack}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => BackHandler()}>
               <GradientBGIcon
                 name="left"
                 color={COLORS.primaryLightGreyHex}

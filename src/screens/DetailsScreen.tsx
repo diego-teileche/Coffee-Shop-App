@@ -9,6 +9,8 @@ const DetailsScreen = ({navigation, route}: any) => {
     route.params.type == 'Coffee' ? state.CoffeeList : state.BeansList,
   )[route.params.index];
 
+  const BackHandler = () => navigation.pop();
+
   return (
     <View style={styles.screenContainer}>
       <StatusBar backgroundColor={COLORS.primaryBlackHex} />
@@ -28,7 +30,7 @@ const DetailsScreen = ({navigation, route}: any) => {
           average_rating={itemOfIndex.average_rating}
           ratings_count={itemOfIndex.ratings_count}
           roasted={itemOfIndex.roasted}
-          BackHandler={() => {}}
+          BackHandler={BackHandler}
           ToggleFavorite={() => {}}
         />
       </ScrollView>
