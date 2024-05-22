@@ -8,6 +8,14 @@ const DetailsScreen = ({navigation, route}: any) => {
   const itemOfIndex = useStore((state: any) =>
     route.params.type == 'Coffee' ? state.CoffeeList : state.BeansList,
   )[route.params.index];
+  const addToFavoriteList = useStore((state: any) => state.addToFavoriteList);
+  const deleteFromFavoriteList = useStore(
+    (state: any) => state.deleteFromFavoriteList,
+  );
+
+  const ToggleFavorite = (favorite: boolean, type: string, id: string) => {
+    favorite ? deleteFromFavoriteList(type, id) : addToFavoriteList(type, id);
+  };
 
   const BackHandler = () => navigation.pop();
 
@@ -23,7 +31,7 @@ const DetailsScreen = ({navigation, route}: any) => {
           imagelink_portrait={itemOfIndex.imagelink_portrait}
           type={itemOfIndex.type}
           id={itemOfIndex.id}
-          favorite={itemOfIndex.favorite}
+          favourite={itemOfIndex.favourite}
           name={itemOfIndex.name}
           special_ingredient={itemOfIndex.special_ingredient}
           ingredients={itemOfIndex.ingredients}
@@ -31,7 +39,7 @@ const DetailsScreen = ({navigation, route}: any) => {
           ratings_count={itemOfIndex.ratings_count}
           roasted={itemOfIndex.roasted}
           BackHandler={BackHandler}
-          ToggleFavorite={() => {}}
+          ToggleFavorite={ToggleFavorite}
         />
       </ScrollView>
     </View>

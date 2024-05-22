@@ -15,7 +15,7 @@ interface ImageBackgroundInfoProps {
   imagelink_portrait: ImageProps;
   type: string;
   id: string;
-  favorite: boolean;
+  favourite: boolean;
   name: string;
   special_ingredient: string;
   ingredients: string;
@@ -31,7 +31,7 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
   imagelink_portrait,
   type,
   id,
-  favorite,
+  favourite,
   name,
   special_ingredient,
   ingredients,
@@ -55,11 +55,12 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
                 size={FONTSIZE.size_16}
               />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => ToggleFavorite(favourite, type, id)}>
               <GradientBGIcon
                 name="like"
                 color={
-                  favorite ? COLORS.primaryRedHex : COLORS.primaryLightGreyHex
+                  favourite ? COLORS.primaryRedHex : COLORS.primaryLightGreyHex
                 }
                 size={FONTSIZE.size_16}
               />
@@ -67,11 +68,12 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
           </View>
         ) : (
           <View style={styles.imageHeaderBarContainerWithoutBack}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => ToggleFavorite(favourite, type, id)}>
               <GradientBGIcon
                 name="like"
                 color={
-                  favorite ? COLORS.primaryRedHex : COLORS.primaryLightGreyHex
+                  favourite ? COLORS.primaryRedHex : COLORS.primaryLightGreyHex
                 }
                 size={FONTSIZE.size_16}
               />
