@@ -4,6 +4,7 @@ import {useStore} from '../store/store';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {COLORS} from '../theme/theme';
 import HeaderBar from '../components/HeaderBar';
+import EmptyListAnimation from '../components/EmptyListAnimation';
 
 const CartScreen = () => {
   const cartList = useStore((state: any) => state.CartList);
@@ -25,7 +26,18 @@ const CartScreen = () => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewFlex}>
-        <HeaderBar title="Cart" />
+        <View
+          style={[styles.scrollViewInnerView, {marginBottom: tabBarHeight}]}>
+          <View style={styles.itemContainer}>
+            <HeaderBar title="Cart" />
+
+            {cartList.length == 0 ? (
+              <EmptyListAnimation title="Cart is Empty" />
+            ) : (
+              <></>
+            )}
+          </View>
+        </View>
       </ScrollView>
     </View>
   );
@@ -38,6 +50,13 @@ const styles = StyleSheet.create({
   },
   scrollViewFlex: {
     flexGrow: 1,
+  },
+  scrollViewInnerView: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  itemContainer: {
+    flex: 1,
   },
 });
 
