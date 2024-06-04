@@ -30,6 +30,16 @@ const CartScreen = ({navigation, route}: any) => {
     navigation.push('Payment');
   };
 
+  const incrementCartItemQuantityHandler = (id: string, size: string) => {
+    incrementCartItemQuantity(id, size);
+    calculateCartPrice();
+  };
+
+  const decrementCartItemQuantityHandler = (id: string, size: string) => {
+    decrementCartItemQuantity(id, size);
+    calculateCartPrice();
+  };
+
   const tabBarHeight = useBottomTabBarHeight();
 
   return (
@@ -58,8 +68,12 @@ const CartScreen = ({navigation, route}: any) => {
                       roasted={data.roasted}
                       prices={data.prices}
                       type={data.type}
-                      incrementCartItemQuantityHandler={() => {}}
-                      decrementCartItemQuantityHandler={() => {}}
+                      incrementCartItemQuantityHandler={
+                        incrementCartItemQuantityHandler
+                      }
+                      decrementCartItemQuantityHandler={
+                        decrementCartItemQuantityHandler
+                      }
                     />
                   </TouchableOpacity>
                 ))}
