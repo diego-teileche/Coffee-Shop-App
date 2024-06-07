@@ -7,9 +7,18 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../theme/theme';
+import {
+  BORDERRADIUS,
+  COLORS,
+  FONTFAMILY,
+  FONTSIZE,
+  SPACING,
+} from '../theme/theme';
 import GradientBGIcon from '../components/GradientBGIcon';
 import PaymentMethod from '../components/PaymentMethod';
+import PaymentFooter from '../components/PaymentFooter';
+import LinearGradient from 'react-native-linear-gradient';
+import CustomIcon from '../components/CustomIcon';
 
 const PaymentList = [
   {
@@ -34,8 +43,10 @@ const PaymentList = [
   },
 ];
 
-const PaymentScreen = () => {
+const PaymentScreen = ({navigation, route}: any) => {
   const [paymentMode, setPaymentMode] = useState('Credit Card');
+
+  const buttonPressHandler = () => {};
 
   return (
     <View style={styles.screenContainer}>
@@ -45,7 +56,7 @@ const PaymentScreen = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewFlex}>
         <View style={styles.headerContainer}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.pop()}>
             <GradientBGIcon
               name="left"
               color={COLORS.primaryLightGreyHex}
@@ -58,6 +69,67 @@ const PaymentScreen = () => {
         </View>
 
         <View style={styles.paymentOptionsContainer}>
+          <TouchableOpacity onPress={() => setPaymentMode('Credit Card')}>
+            <View
+              style={[
+                styles.creditCardContainer,
+                {
+                  borderColor:
+                    paymentMode == 'Credit Card'
+                      ? COLORS.primaryOrangeHex
+                      : COLORS.primaryGreyHex,
+                },
+              ]}>
+              <Text style={styles.creditCardTitle}>Credit Card</Text>
+
+              <View style={styles.creditCardBG}>
+                <LinearGradient
+                  start={{x: 0, y: 0}}
+                  end={{x: 1, y: 1}}
+                  colors={[COLORS.primaryGreyHex, COLORS.primaryBlackHex]}
+                  style={styles.linearGradientStyle}>
+                  <View style={styles.creditCardRow}>
+                    <CustomIcon
+                      name="chip"
+                      size={FONTSIZE.size_20 * 2}
+                      color={COLORS.primaryOrangeHex}
+                    />
+                    <CustomIcon
+                      name="visa"
+                      size={FONTSIZE.size_30 * 2}
+                      color={COLORS.primaryWhiteHex}
+                    />
+                  </View>
+
+                  <View style={styles.creditCardNumberContainer}>
+                    <Text style={styles.creditCardNumber}>8392</Text>
+                    <Text style={styles.creditCardNumber}>5345</Text>
+                    <Text style={styles.creditCardNumber}>2312</Text>
+                    <Text style={styles.creditCardNumber}>8798</Text>
+                  </View>
+
+                  <View style={styles.creditCardRow}>
+                    <View style={styles.creditCardNameContainer}>
+                      <Text style={styles.creditCardNameSubtitle}>
+                        Card Holder Name
+                      </Text>
+                      <Text style={styles.creditCardNameTitle}>
+                        Robert Evans
+                      </Text>
+                    </View>
+
+                    <View style={styles.creditCardDateContainer}>
+                      <Text style={styles.creditCardNameSubtitle}>
+                        Expiry Date
+                      </Text>
+                      <Text style={styles.creditCardNameTitle}>02/30</Text>
+                    </View>
+                  </View>
+                </LinearGradient>
+              </View>
+            </View>
+          </TouchableOpacity>
+
           {PaymentList.map((data: any) => (
             <TouchableOpacity
               key={data.name}
@@ -72,6 +144,12 @@ const PaymentScreen = () => {
           ))}
         </View>
       </ScrollView>
+
+      <PaymentFooter
+        buttonTitle={`Pay with ${paymentMode}`}
+        price={{price: route.params.amount, currency: '$'}}
+        buttonPressHandler={buttonPressHandler}
+      />
     </View>
   );
 };
@@ -103,6 +181,60 @@ const styles = StyleSheet.create({
   paymentOptionsContainer: {
     padding: SPACING.space_15,
     gap: SPACING.space_15,
+  },
+  creditCardContainer: {
+    padding: SPACING.space_10,
+    gap: SPACING.space_10,
+    borderRadius: BORDERRADIUS.radius_15 * 2,
+    borderWidth: 3,
+  },
+  creditCardTitle: {
+    fontFamily: FONTFAMILY.poppins_semibold,
+    fontSize: FONTSIZE.size_14,
+    color: COLORS.primaryWhiteHex,
+    marginLeft: SPACING.space_10,
+  },
+  creditCardBG: {
+    backgroundColor: COLORS.primaryGreyHex,
+    borderRadius: BORDERRADIUS.radius_25,
+  },
+  linearGradientStyle: {
+    borderRadius: BORDERRADIUS.radius_25,
+    gap: SPACING.space_36,
+    paddingHorizontal: SPACING.space_15,
+    paddingVertical: SPACING.space_10,
+  },
+  creditCardRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  creditCardNumberContainer: {
+    flexDirection: 'row',
+    gap: SPACING.space_10,
+    alignItems: 'center',
+  },
+  creditCardNumber: {
+    fontFamily: FONTFAMILY.poppins_semibold,
+    fontSize: FONTSIZE.size_16,
+    color: COLORS.primaryWhiteHex,
+    letterSpacing: SPACING.space_4,
+  },
+  creditCardNameContainer: {
+    alignItems: 'flex-start',
+  },
+  creditCardDateContainer: {
+    alignItems: 'flex-end',
+  },
+  creditCardNameSubtitle: {
+    fontFamily: FONTFAMILY.poppins_regular,
+    fontSize: FONTSIZE.size_12,
+    color: COLORS.secondaryLightGreyHex,
+  },
+  creditCardNameTitle: {
+    fontFamily: FONTFAMILY.poppins_medium,
+    fontSize: FONTSIZE.size_16,
+    color: COLORS.primaryWhiteHex,
   },
 });
 

@@ -27,7 +27,7 @@ const CartScreen = ({navigation, route}: any) => {
   const calculateCartPrice = useStore((state: any) => state.calculateCartPrice);
 
   const buttonPressHandler = () => {
-    navigation.push('Payment');
+    navigation.push('Payment', {amount: cartPrice});
   };
 
   const incrementCartItemQuantityHandler = (id: string, size: string) => {
