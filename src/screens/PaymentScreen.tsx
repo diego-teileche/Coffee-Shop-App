@@ -9,6 +9,7 @@ import {
 import React, {useState} from 'react';
 import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../theme/theme';
 import GradientBGIcon from '../components/GradientBGIcon';
+import PaymentMethod from '../components/PaymentMethod';
 
 const PaymentList = [
   {
@@ -56,7 +57,20 @@ const PaymentScreen = () => {
           <View style={styles.emptyView} />
         </View>
 
-        <View style={styles.paymentOptionsContainer}></View>
+        <View style={styles.paymentOptionsContainer}>
+          {PaymentList.map((data: any) => (
+            <TouchableOpacity
+              key={data.name}
+              onPress={() => setPaymentMode(data.name)}>
+              <PaymentMethod
+                paymentMode={paymentMode}
+                name={data.name}
+                icon={data.icon}
+                isIcon={data.isIcon}
+              />
+            </TouchableOpacity>
+          ))}
+        </View>
       </ScrollView>
     </View>
   );
