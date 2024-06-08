@@ -42,8 +42,8 @@ const OrderHistoryScreen = () => {
                     key={index.toString()}
                     navigationHandler={() => {}}
                     cartItem={data.cartItem}
-                    cartListPrice={data.cartListPrice}
-                    orderDate={data.orderDate}
+                    cartListPrice={data.CartListPrice}
+                    orderDate={data.OrderDate}
                   />
                 ))}
               </View>
