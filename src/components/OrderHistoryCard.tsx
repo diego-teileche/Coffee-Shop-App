@@ -1,17 +1,18 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../theme/theme';
+import OrderItemCard from './OrderItemCard';
 
 interface OrderHistoryCardProps {
   navigationHandler: any;
-  cartItem: any;
+  cartList: any;
   cartListPrice: string;
   orderDate: string;
 }
 
 const OrderHistoryCard: React.FC<OrderHistoryCardProps> = ({
   navigationHandler,
-  cartItem,
+  cartList,
   cartListPrice,
   orderDate,
 }) => {
@@ -29,7 +30,20 @@ const OrderHistoryCard: React.FC<OrderHistoryCardProps> = ({
         </View>
       </View>
 
-      <View style={styles.listContainer}></View>
+      <View style={styles.listContainer}>
+        {cartList.map((data: any, index: any) => (
+          <TouchableOpacity key={index.toString() + data.id}>
+            <OrderItemCard
+              type={data.type}
+              name={data.name}
+              imagelink_square={data.imagelink_square}
+              special_ingredient={data.special_ingredient}
+              prices={data.prices}
+              itemPrice={data.ItemPrice}
+            />
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
   );
 };
