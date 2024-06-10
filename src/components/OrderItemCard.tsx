@@ -47,6 +47,41 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
           </Text>
         </View>
       </View>
+
+      {prices.map((data: any, index: any) => (
+        <View key={index.toString()} style={styles.cardTableRow}>
+          <View style={styles.cardTableRow}>
+            <View style={styles.sizeBoxLeft}>
+              <Text
+                style={[
+                  styles.sizeText,
+                  {
+                    fontSize:
+                      type == 'Bean' ? FONTSIZE.size_12 : FONTSIZE.size_16,
+                  },
+                ]}>
+                {data.size}
+              </Text>
+            </View>
+
+            <View style={styles.priceBoxRight}>
+              <Text style={styles.priceCurrency}>
+                {data.currency} <Text style={styles.price}>{data.price}</Text>
+              </Text>
+            </View>
+          </View>
+
+          <View style={styles.cardTableRow}>
+            <Text style={styles.cardQuantityPriceText}>
+              X <Text style={styles.price}>{data.quantity}</Text>
+            </Text>
+
+            <Text style={styles.cardQuantityPriceText}>
+              $ {(data.quantity * data.price).toFixed(2).toString()}
+            </Text>
+          </View>
+        </View>
+      ))}
     </LinearGradient>
   );
 };
@@ -89,6 +124,53 @@ const styles = StyleSheet.create({
   },
   cardPrice: {
     color: COLORS.primaryWhiteHex,
+  },
+  cardTableRow: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  sizeBoxLeft: {
+    flex: 1,
+    height: 35,
+    backgroundColor: COLORS.primaryBlackHex,
+    borderTopLeftRadius: BORDERRADIUS.radius_10,
+    borderBottomLeftRadius: BORDERRADIUS.radius_10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRightWidth: 1,
+    borderRightColor: COLORS.primaryGreyHex,
+  },
+  sizeText: {
+    fontFamily: FONTFAMILY.poppins_medium,
+    color: COLORS.secondaryLightGreyHex,
+  },
+  priceBoxRight: {
+    flex: 1,
+    height: 35,
+    backgroundColor: COLORS.primaryBlackHex,
+    borderTopRightRadius: BORDERRADIUS.radius_10,
+    borderBottomRightRadius: BORDERRADIUS.radius_10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderLeftWidth: 1,
+    borderLeftColor: COLORS.primaryGreyHex,
+  },
+  priceCurrency: {
+    fontFamily: FONTFAMILY.poppins_semibold,
+    fontSize: FONTSIZE.size_16,
+    color: COLORS.primaryOrangeHex,
+  },
+  price: {
+    color: COLORS.primaryWhiteHex,
+  },
+  cardQuantityPriceText: {
+    flex: 1,
+    textAlign: 'center',
+    fontFamily: FONTFAMILY.poppins_semibold,
+    fontSize: FONTSIZE.size_16,
+    color: COLORS.primaryOrangeHex,
   },
 });
 
