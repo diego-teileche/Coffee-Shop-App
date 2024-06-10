@@ -28,6 +28,13 @@ const OrderHistoryScreen = ({navigation}: any) => {
   const navigationHandler = ({index, id, type}: any) =>
     navigation.push('Details', {index, id, type});
 
+  const buttonPressHandler = () => {
+    setShowAnimation(true);
+    setTimeout(() => {
+      setShowAnimation(false);
+    }, 2000);
+  };
+
   const tabBarHeight = useBottomTabBarHeight();
 
   return (
@@ -37,7 +44,7 @@ const OrderHistoryScreen = ({navigation}: any) => {
       {showAnimation ? (
         <PopUpAnimation
           style={styles.lottieAnimation}
-          source={require('../lottie/successful.json')}
+          source={require('../lottie/download.json')}
         />
       ) : (
         <></>
@@ -67,7 +74,9 @@ const OrderHistoryScreen = ({navigation}: any) => {
           </View>
 
           {orderHistoryList.length > 0 ? (
-            <TouchableOpacity style={styles.downloadButton}>
+            <TouchableOpacity
+              style={styles.downloadButton}
+              onPress={() => buttonPressHandler()}>
               <Text style={styles.downloadText}>Download</Text>
             </TouchableOpacity>
           ) : (
