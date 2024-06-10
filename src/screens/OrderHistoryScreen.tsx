@@ -1,8 +1,21 @@
-import {ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 import {useStore} from '../store/store';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
-import {COLORS, SPACING} from '../theme/theme';
+import {
+  BORDERRADIUS,
+  COLORS,
+  FONTFAMILY,
+  FONTSIZE,
+  SPACING,
+} from '../theme/theme';
 import HeaderBar from '../components/HeaderBar';
 import EmptyListAnimation from '../components/EmptyListAnimation';
 import PopUpAnimation from '../components/PopUpAnimation';
@@ -52,6 +65,14 @@ const OrderHistoryScreen = ({navigation}: any) => {
               </View>
             )}
           </View>
+
+          {orderHistoryList.length > 0 ? (
+            <TouchableOpacity style={styles.downloadButton}>
+              <Text style={styles.downloadText}>Download</Text>
+            </TouchableOpacity>
+          ) : (
+            <></>
+          )}
         </View>
       </ScrollView>
     </View>
@@ -79,6 +100,19 @@ const styles = StyleSheet.create({
   listItemContainer: {
     paddingHorizontal: SPACING.space_20,
     gap: SPACING.space_20,
+  },
+  downloadButton: {
+    margin: SPACING.space_20,
+    backgroundColor: COLORS.primaryOrangeHex,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: SPACING.space_36 * 2,
+    borderRadius: BORDERRADIUS.radius_20,
+  },
+  downloadText: {
+    fontFamily: FONTFAMILY.poppins_semibold,
+    fontSize: FONTSIZE.size_18,
+    color: COLORS.primaryWhiteHex,
   },
 });
 
