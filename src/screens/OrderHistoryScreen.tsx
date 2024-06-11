@@ -50,7 +50,9 @@ const OrderHistoryScreen = ({navigation}: any) => {
         <></>
       )}
 
-      <ScrollView style={styles.scrollViewFlex}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollViewFlex}>
         <View
           style={[styles.scrollViewInnerView, {marginBottom: tabBarHeight}]}>
           <View style={styles.itemContainer}>
