@@ -3,6 +3,7 @@
 This is a Coffee Shop App built by `Diego Tech` by using:
 
 - React Native
+- TypeScript
 
 ## 🚀 I used the Libraries
 
@@ -17,7 +18,8 @@ This is a Coffee Shop App built by `Diego Tech` by using:
 
 ### One message for Everyone 🔥
 
-```bash
-Aguante Argentina!!!
-Aguante Messi!!!
-```
+> [!TIP]
+> ```bash
+> Aguante Argentina!!!
+> Aguante Messi!!!
+> ```
