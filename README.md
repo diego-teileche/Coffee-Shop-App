@@ -1,11 +1,19 @@
-# About the App 📱
+# About the App <img src="./src/assets/readme/coffee-logo-readme.png" width="40px" height="40px" align="center" alt="SaaS Landing Page Logo | Diego Tech" />
 
 This is a Coffee Shop App built by `Diego Tech` by using:
 
 - React Native
 - TypeScript
 
-## 🚀 I used the Libraries
+<br />
+
+<img src="./src/assets/readme/coffee1.webp" width="600px" height="293px" alt="Coffee Shop App | Diego Tech | Image 1" />
+<img src="./src/assets/readme/coffee2.webp" width="600px" height="293px" alt="Coffee Shop App | Diego Tech | Image 2" />
+<img src="./src/assets/readme/coffee3.webp" width="600px" height="293px" alt="Coffee Shop App | Diego Tech | Image 3" />
+
+<br />
+
+## I used the Libraries 🚀
 
 - React Native Navigation
 - Zustand
@@ -19,7 +27,7 @@ This is a Coffee Shop App built by `Diego Tech` by using:
 ### One message for Everyone 🔥
 
 > [!TIP]
-> ```bash
+> ```shell
 > Aguante Argentina!!!
 > Aguante Messi!!!
 > ```
